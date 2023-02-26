@@ -1,28 +1,64 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+:root {
+	--dark: #1c1c1c;
+	--yellow: #f8d26d;
+	--timber: #dfa46d;
+	--plum: #724d50;
+	--lightestBlue: #e7f6fd;
+	--lightBlue: #cdedfc;
+	--blue: #9fdcf9;
+	--white: #ffffff;
+}
+body,
+html,
+main {
+	height: 100%;
+	width: 100%;
 }
 
 body {
-  background: #1c1c1c;
-  overflow: hidden;
-  height: 100vh;
+	background: var(--dark);
+	font-family: 'VT323', monospace;
+	overflow: hidden;
+}
+.section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
 }
 
 .bar {
-  color: black;
-  padding: 16px;
+	color: black;
+	padding: 16px;
 }
 
 .health {
-  padding: 16px;
+	padding: 16px;
 }
 
 .gameBoy {
-  max-width: 420px;
-  background: #f8d26d;
-  border-radius: 10px;
-  margin: 0 auto;
-  height: 657px;
+	max-width: 420px;
+	background: var(--yellow);
+	border-radius: 10px;
+	margin: 0 auto;
+	height: 657px;
+}
+.gameButton {
+	background: var(--yellow);
+	border: 5px solid var(--timber);
+  border-radius: 50%;
+	box-shadow: 0px 7px 0px var(--plum);
+	display: inline-block;
+	height: 75px;
+	width: 70px;
+}
+.gameButtons-list {
+	display: flex;
+	list-style: none;
 }

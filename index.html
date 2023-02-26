@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Tamagotchi</title>
-    <link href="./styles.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="gameBoy">
-      <p class="bar">Energy <span class="health" /></p>
-    </div>
 
-    <script src="./app.js" type="module"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Tamagotchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link href="./styles.css" rel="stylesheet" />
+</head>
+
+<body>
+  <main class="main">
+    <section class="section">
+      <div class="gameBoy">
+        <div class="gameDisplay"></div>
+        <div class="gameButtons">
+          <ul class="gameButtons-list">
+            <li class="gameButtonItem"><button class="gameButton"><img src="/images/apple.png"
+                  alt="eating-icon"></button>
+            </li>
+            <li class="gameButtonItem"><button class="gameButton"><img src="/images/sleeping.png"
+                  alt="sleeping-icon"></button></li>
+            <li class="gameButtonItem"><button class="gameButton"><img src="/images/playing.png"
+                  alt="playing-icon"></button></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <script src="./app.js" type="module"></script>
+</body>
+
 </html>
