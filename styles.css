@@ -35,30 +35,116 @@ body {
 
 .bar {
 	color: black;
-	padding: 16px;
+	display: flex;
+	align-items: center;
+	/* padding: 16px; */
 }
 
-.health {
-	padding: 16px;
+.health,
+.hunger,
+.energy {
+	padding-right: 16px;
+	font-size: 40px;
+	line-height: 40px;
+	letter-spacing: 15%;
 }
-
+.fun {
+	padding-right: 0;
+	font-size: 40px;
+	line-height: 40px;
+	letter-spacing: 15%;
+}
 .gameBoy {
-	max-width: 420px;
+	/* max-width: 420px; */
 	background: var(--yellow);
 	border-radius: 10px;
 	margin: 0 auto;
-	height: 657px;
+	/* height: 657px; */
+	padding: 50px 10px 40px 10px;
 }
 .gameButton {
 	background: var(--yellow);
 	border: 5px solid var(--timber);
-  border-radius: 50%;
+	border-radius: 50%;
 	box-shadow: 0px 7px 0px var(--plum);
+	cursor: pointer;
 	display: inline-block;
 	height: 75px;
 	width: 70px;
 }
+.gameButton:active {
+	box-shadow: none;
+	transform: translateY(7px);
+}
+.gameButtons {
+	display: flex;
+	flex-direction: column;
+	padding: 24px 34px 0 34px;
+}
 .gameButtons-list {
 	display: flex;
+	justify-content: space-between;
 	list-style: none;
+}
+.gameParameters-list {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	margin-bottom: 20px;
+}
+.gameRestartButton {
+	background: var(--yellow);
+	border: 6px solid var(--timber);
+	box-shadow: 0px 7px 0px var(--plum);
+	color: var(--dark);
+	cursor: pointer;
+	display: none;
+	/* display: inline-flex; */
+	align-items: center;
+	justify-content: center;
+	font-family: 'VT323', monospace;
+	font-weight: 400;
+	font-size: 50px;
+	line-height: 50px;
+	padding: 8px 16px;
+}
+
+.gameDisplay {
+	border: 10px solid var(--timber);
+}
+.gameStats {
+	background: var(--lightBlue);
+	border: 10px solid var(--lightestBlue);
+	padding: 16px;
+}
+.tamagotchiFrame {
+	border: 7px solid var(--blue);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 65px;
+	position: relative;
+}
+
+.tamagotchiLine {
+	background: var(--white);
+	position: absolute;
+	left: 85px;
+	bottom: 65px;
+	content: 'after';
+	height: 8px;
+	width: 170px;
+}
+.tamagotchiStates {
+	background: var(--lightestBlue);
+	color: var(--plum);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 56px;
+	line-height: 56px;
+	margin-top: 15px;
+	padding: 16px 0;
+	text-transform: uppercase;
+	width: 100%;
 }

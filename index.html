@@ -14,7 +14,29 @@
   <main class="main">
     <section class="section">
       <div class="gameBoy">
-        <div class="gameDisplay"></div>
+        <div class="gameDisplay">
+          <div class="gameStats">
+            <ul class="gameParameters-list">
+              <li class="gameParameters-item">
+                <p class="bar"><img src="./images/heart.png" alt="heart-icon"> <span class="health"></span></p>
+              </li>
+              <li class="gameParameters-item">
+                <p class="bar"><img src="./images/apple.png" alt="apple-icon"> <span class="hunger"></span></p>
+              </li>
+              <li class="gameParameters-item">
+                <p class="bar"><img src="./images/sleeping.png" alt="sleeping-icon"> <span class="energy"></span></p>
+              </li>
+              <li class="gameParameters-item">
+                <p class="bar"><img src="./images/playing.png" alt="playing-icon"> <span class="fun"></span></p>
+              </li>
+            </ul>
+            <div class="tamagotchiFrame">
+              <img class="tamagotchiImage" src="./images/happyTamatgochi.png" alt="Tamagotchi whne it is happy">
+              <div class="tamagotchiLine"></div>
+            </div>
+            <span class="tamagotchiStates">Happy</span>
+          </div>
+        </div>
         <div class="gameButtons">
           <ul class="gameButtons-list">
             <li class="gameButtonItem"><button class="gameButton"><img src="/images/apple.png"
@@ -25,6 +47,8 @@
             <li class="gameButtonItem"><button class="gameButton"><img src="/images/playing.png"
                   alt="playing-icon"></button></li>
           </ul>
+
+          <button class="gameRestartButton">Restart</button>
         </div>
       </div>
     </section>
