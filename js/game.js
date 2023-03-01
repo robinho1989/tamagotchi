@@ -13,6 +13,7 @@ export default class Game {
 			funElement,
 		});
 
-		console.log('Game started');
+		
 	};
+	
 }

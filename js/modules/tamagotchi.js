@@ -5,6 +5,21 @@ export default class Tamagotchi {
 		this.energy = { value: 10, importance: 2 };
 		this.fun = { value: 10, importance: 4 };
 		console.log('Tamagotchi initialized');
+		this.healthDecrease = setInterval(() => {
+			this.health.value -= 1;
+			if (this.health.value <= 0) {
+				clearInterval(this.healthDecrease);
+			}
+			// this.displayHealth();
+			
+		}, 1000);
+		this.energyDecrease = setInterval(() => {
+			this.energy.value -= 1;
+			if (this.energy.value <= 0) {
+				clearInterval(this.energyDecrease);
+			}
+			this.displayEnergy()
+		}, 2000);
 	}
 
 	displayHealth = (elementSelector) => {
@@ -27,7 +42,7 @@ export default class Tamagotchi {
 	mount = ({ healthElement, hungerElement, energyElement, funElement }) => {
 		this.displayHealth(healthElement);
 		this.displayHunger(hungerElement);
-		this.displayHunger(energyElement);
-		this.displayHunger(funElement);
+		this.displayEnergy(energyElement);
+		this.displayFun(funElement);
 	};
 }
