@@ -12,8 +12,5 @@ export default class Game {
 			energyElement,
 			funElement,
 		});
-
-		
 	};
-	
 }
