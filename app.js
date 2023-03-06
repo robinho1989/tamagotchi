@@ -9,5 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		hungerElement: '.hunger',
 		energyElement: '.energy',
 		funElement: '.fun',
+		imageElement: '.tamagotchiImage',
 	});
 });

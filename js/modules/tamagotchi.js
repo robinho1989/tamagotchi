@@ -4,7 +4,21 @@ export default class Tamagotchi {
 		this.hunger = { value: 10, importance: 3, element: null };
 		this.energy = { value: 10, importance: 2, element: null };
 		this.fun = { value: 10, importance: 4, element: null };
+
+		this.happy = {
+			class: 'happy',
+			state: 'HAPPY',
+			element: null,
+			path: './images/spritesheets/happyTamatgochi.png',
+		};
+		this.dead = {
+			class: 'dead',
+			state: 'DEAD',
+			element: null,
+			path: './images/spritesheets/spritesheet-dead.png',
+		};
 		console.log('Tamagotchi initialized');
+
 		this.healthDecrease();
 		this.energyDecrease();
 		this.hungerDecrease();
@@ -27,6 +41,7 @@ export default class Tamagotchi {
 		const displayElement = document.querySelector(elementSelector);
 		displayElement.innerText = this.fun.value;
 	};
+
 	energyDecrease = () => {
 		const decreaseValue = setInterval(() => {
 			let newDecrementValue = 2;
@@ -42,6 +57,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayEnergy(this.energy.element);
+			this.displayImage(this.happy.element);
 		}, 2000);
 	};
 	hungerDecrease = () => {
@@ -51,6 +67,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayHunger(this.hunger.element);
+			this.displayImage(this.happy.element);
 		}, 1000);
 	};
 	funDecrease = () => {
@@ -60,6 +77,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayFun(this.fun.element);
+			this.displayImage(this.happy.element);
 		}, 1000);
 	};
 	healthDecrease = () => {
@@ -70,17 +88,41 @@ export default class Tamagotchi {
 				if (this.health.value <= 0) {
 					clearInterval(decreaseValue);
 				}
+				this.displayImage(this.happy.element);
 			}
 		}, 1000);
 	};
-	mount = ({ healthElement, hungerElement, energyElement, funElement }) => {
+	displayImage = (elementSelector) => {
+		const image = document.querySelector(elementSelector);
+
+		if (
+			this.energy.value &&
+			this.health.element &&
+			this.fun.value &&
+			this.hunger.value >= 7
+		) {
+			image.src = this.happy.path;
+		}
+		if (this.fun.value <= 6) {
+			image.src = this.dead.path;
+		}
+	};
+	mount = ({
+		healthElement,
+		hungerElement,
+		energyElement,
+		funElement,
+		imageElement,
+	}) => {
 		this.health.element = healthElement;
 		this.hunger.element = hungerElement;
 		this.energy.element = energyElement;
 		this.fun.element = funElement;
+		this.happy.element = imageElement;
 		this.displayHealth(healthElement);
 		this.displayHunger(hungerElement);
 		this.displayEnergy(energyElement);
 		this.displayFun(funElement);
+		this.displayImage(imageElement);
 	};
 }
