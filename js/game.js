@@ -12,7 +12,5 @@ export default class Game {
 			energyElement,
 			funElement,
 		});
-
-		console.log('Game started');
 	};
 }

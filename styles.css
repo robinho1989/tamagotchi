@@ -57,7 +57,7 @@ body {
 	letter-spacing: 15%;
 }
 .gameBoy {
-	/* max-width: 420px; */
+	/* width: 470px; */
 	background: var(--yellow);
 	border-radius: 10px;
 	margin: 0 auto;
@@ -131,7 +131,8 @@ body {
 .tamagotchiLine {
 	background: var(--white);
 	position: absolute;
-	left: 85px;
+	/* left: 85px; */
+	transform: translateX(-2%);
 	bottom: 65px;
 	content: 'after';
 	height: 8px;
