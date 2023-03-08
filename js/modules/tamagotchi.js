@@ -5,17 +5,30 @@ export default class Tamagotchi {
 		this.energy = { value: 10, importance: 2, element: null };
 		this.fun = { value: 10, importance: 4, element: null };
 
-		this.happy = {
-			class: 'happy',
-			state: 'HAPPY',
+		this.initial = {
+			state: 'Happy',
 			element: null,
 			path: './images/spritesheets/happyTamatgochi.png',
 		};
 		this.dead = {
-			class: 'dead',
-			state: 'DEAD',
+			state: 'Dead',
 			element: null,
 			path: './images/spritesheets/spritesheet-dead.png',
+		};
+		this.sad = {
+			state: 'Sad',
+			element: null,
+			path: './images/spritesheets/spritesheet-sitting.png',
+		};
+		this.hungry = {
+			state: 'Hungry',
+			element: null,
+			path: './images/spritesheets/spritesheet-hungry.png',
+		};
+		this.sleepy = {
+			state: 'Sleepy',
+			element: null,
+			path: './images/spritesheets/spritesheet-sleepy.png',
 		};
 		console.log('Tamagotchi initialized');
 
@@ -41,6 +54,57 @@ export default class Tamagotchi {
 		const displayElement = document.querySelector(elementSelector);
 		displayElement.innerText = this.fun.value;
 	};
+	displayParagraph = (textContent) => {
+		const paragraph = document.querySelector('.tamagotchiStates');
+		paragraph.textContent = textContent;
+	};
+	displayState = (imageSelector) => {
+		const image = document.querySelector(imageSelector);
+		if (
+			this.energy.value &&
+			this.health.element &&
+			this.fun.value &&
+			this.hunger.value >= 7
+		) {
+			image.src = this.initial.path;
+			this.displayParagraph(this.initial.state);
+		}
+		if (
+			this.energy.value <= 6 &&
+			this.energy.importance < this.hunger.importance &&
+			this.energy.importance < this.fun.importance
+		) {
+			image.src = this.sleepy.path;
+			this.displayParagraph(this.sleepy.state);
+		}
+		if (
+			this.hunger.value <= 6 &&
+			this.hunger.importance > this.energy.importance
+		) {
+			image.src = this.hungry.path;
+			this.displayParagraph(this.hungry.state);
+		}
+		if (this.fun.value <= 6 && this.fun.importance > this.hunger.importance) {
+			image.src = this.sad.path;
+			this.displayParagraph(this.sad.state);
+		}
+		if (this.health.value <= 0) {
+			image.src = this.dead.path;
+			this.displayParagraph(this.dead.state);
+		}
+		if (image.classList.contains('feedingState')) {
+			image.src = './images/spritesheets/spritesheet-eating.png';
+			this.displayParagraph('feeding');
+		}
+		if (image.classList.contains('sleepingState')) {
+			image.src = './images/spritesheets/spritesheet-sleeping.png';
+			this.displayParagraph('sleeping');
+		}
+		if (image.classList.contains('playingState')) {
+			image.src = './images/spritesheets/spritesheet-playing.png';
+			this.displayParagraph('playing');
+		}
+	};
 
 	energyDecrease = () => {
 		const decreaseValue = setInterval(() => {
@@ -57,7 +121,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayEnergy(this.energy.element);
-			this.displayImage(this.happy.element);
+			this.displayState(this.initial.element);
 		}, 2000);
 	};
 	hungerDecrease = () => {
@@ -67,7 +131,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayHunger(this.hunger.element);
-			this.displayImage(this.happy.element);
+			this.displayState(this.initial.element);
 		}, 1000);
 	};
 	funDecrease = () => {
@@ -77,7 +141,7 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayFun(this.fun.element);
-			this.displayImage(this.happy.element);
+			this.displayState(this.initial.element);
 		}, 1000);
 	};
 	healthDecrease = () => {
@@ -88,41 +152,65 @@ export default class Tamagotchi {
 				if (this.health.value <= 0) {
 					clearInterval(decreaseValue);
 				}
-				this.displayImage(this.happy.element);
+				this.displayState(this.initial.element);
 			}
 		}, 1000);
 	};
-	displayImage = (elementSelector) => {
-		const image = document.querySelector(elementSelector);
-
-		if (
-			this.energy.value &&
-			this.health.element &&
-			this.fun.value &&
-			this.hunger.value >= 7
-		) {
-			image.src = this.happy.path;
-		}
-		if (this.fun.value <= 6) {
-			image.src = this.dead.path;
-		}
+	feedingAction = (elementSelector) => {
+		const feedingButton = document.querySelector(elementSelector);
+		const image = document.querySelector('.tamagotchiImage');
+		feedingButton.addEventListener('mousedown', () => {
+			// this.displayParagraph('feeding');
+			// image.src = './images/spritesheets/spritesheet-eating.png';
+			image.classList.add('feedingState');
+		});
+		feedingButton.addEventListener('mouseup', () => {
+			image.classList.remove('feedingState');
+		});
+	};
+	sleepingAction = (elementSelector) => {
+		const sleepingButton = document.querySelector(elementSelector);
+		const image = document.querySelector('.tamagotchiImage');
+		sleepingButton.addEventListener('mousedown', () => {
+			image.classList.add('sleepingState');
+		});
+		sleepingButton.addEventListener('mouseup', () => {
+			image.classList.remove('sleepingState');
+		});
+	};
+	playingAction = (elementSelector) => {
+		const playingButton = document.querySelector(elementSelector);
+		const image = document.querySelector('.tamagotchiImage');
+		playingButton.addEventListener('mousedown', () => {
+			image.classList.add('playingState');
+		});
+		playingButton.addEventListener('mouseup', () => {
+			image.classList.remove('playingState');
+		});
 	};
 	mount = ({
+		feedingButton,
+		sleepingButton,
+		playingButton,
 		healthElement,
 		hungerElement,
 		energyElement,
 		funElement,
-		imageElement,
+		imageSelector,
 	}) => {
 		this.health.element = healthElement;
 		this.hunger.element = hungerElement;
 		this.energy.element = energyElement;
 		this.fun.element = funElement;
-		this.happy.element = imageElement;
+		this.initial.element = imageSelector;
+
 		this.displayHealth(healthElement);
 		this.displayHunger(hungerElement);
 		this.displayEnergy(energyElement);
 		this.displayFun(funElement);
-		this.displayImage(imageElement);
+		this.displayState(imageSelector);
+		this.feedingAction(feedingButton);
+		this.playingAction(playingButton);
+		this.sleepingAction(sleepingButton);
 	};
 }

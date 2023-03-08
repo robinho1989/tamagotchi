@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Start game
 	game.start({
+		feedingButton: '.feedingButton',
+		sleepingButton: '.sleepingButton',
+		playingButton: '.playingButton',
 		healthElement: '.health',
 		hungerElement: '.hunger',
 		energyElement: '.energy',
 		funElement: '.fun',
-		imageElement: '.tamagotchiImage',
+		imageSelector: '.tamagotchiImage',
 	});
 });

@@ -6,18 +6,24 @@ export default class Game {
 	}
 
 	start = ({
+		feedingButton,
+		sleepingButton,
+		playingButton,
 		healthElement,
 		hungerElement,
 		energyElement,
 		funElement,
-		imageElement,
+		imageSelector,
 	}) => {
 		this.tamagotchi.mount({
+			feedingButton,
+			sleepingButton,
+			playingButton,
 			healthElement,
 			hungerElement,
 			energyElement,
 			funElement,
-			imageElement,
+			imageSelector,
 		});
 	};
 }

@@ -57,7 +57,7 @@ body {
 	letter-spacing: 15%;
 }
 .gameBoy {
-	/* width: 470px; */
+	width: 447px;
 	background: var(--yellow);
 	border-radius: 10px;
 	margin: 0 auto;
@@ -91,6 +91,7 @@ body {
 .gameParameters-list {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	list-style: none;
 	margin-bottom: 20px;
 }
@@ -110,7 +111,31 @@ body {
 	line-height: 50px;
 	padding: 8px 16px;
 }
+.tamagotchiImage {
+	position: absolute;
+	bottom: 7px;
+	object-fit: none;
+	object-position: 0 0;
+}
+.imageContainer {
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	position: relative;
+}
 
+.feedingState {
+	animation: feeding 1s steps(2) infinite;
+	object-position: -150px 0;
+}
+.playingState {
+	animation: playing 1s steps(2) infinite;
+	object-position: -150px 0;
+}
+.sleepingState {
+	animation: sleeping 1s steps(2) infinite;
+	object-position: -150px 0;
+}
 .gameDisplay {
 	border: 10px solid var(--timber);
 }
@@ -124,16 +149,18 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height: 280px;
 	padding: 65px;
 	position: relative;
+	overflow: hidden;
+	width: 100%;
 }
-
 .tamagotchiLine {
 	background: var(--white);
 	position: absolute;
 	/* left: 85px; */
 	transform: translateX(-2%);
-	bottom: 65px;
+	bottom: 60px;
 	content: 'after';
 	height: 8px;
 	width: 170px;
@@ -150,4 +177,29 @@ body {
 	padding: 16px 0;
 	text-transform: uppercase;
 	width: 100%;
+}
+
+@keyframes feeding {
+	from {
+		object-position: 0 0;
+	}
+	to {
+		object-position: -300px 0;
+	}
+}
+@keyframes sleeping {
+	from {
+		object-position: 0 0;
+	}
+	to {
+		object-position: -300px 0;
+	}
+}
+@keyframes playing {
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: -300px 0;
+	}
 }
