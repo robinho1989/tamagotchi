@@ -14,4 +14,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		funElement: '.fun',
 		imageSelector: '.tamagotchiImage',
 	});
+	game.play({ actionButtons: '.gameButton' });
 });

@@ -1,8 +1,10 @@
+import Abilities from './modules/abilities.js';
 import Tamagotchi from './modules/tamagotchi.js';
 
 export default class Game {
 	constructor() {
 		this.tamagotchi = new Tamagotchi();
+		this.abilities = new Abilities();
 	}
 
 	start = ({
@@ -25,5 +27,8 @@ export default class Game {
 			funElement,
 			imageSelector,
 		});
+	};
+	play = ({ actionButtons }) => {
+		this.abilities.abilities({ actionButtons });
 	};
 }
