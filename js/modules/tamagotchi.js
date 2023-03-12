@@ -47,32 +47,8 @@ export default class Tamagotchi {
 				path: './images/spritesheets/spritesheet-sleeping.png',
 			},
 		};
+		this.currentState = this.states.happy.stateName;
 
-		this.initial = {
-			state: 'Happy',
-			element: null,
-			path: './images/spritesheets/happyTamatgochi.png',
-		};
-		this.dead = {
-			state: 'Dead',
-			element: null,
-			path: './images/spritesheets/spritesheet-dead.png',
-		};
-		this.sad = {
-			state: 'Sad',
-			element: null,
-			path: './images/spritesheets/spritesheet-sitting.png',
-		};
-		this.hungry = {
-			state: 'Hungry',
-			element: null,
-			path: './images/spritesheets/spritesheet-hungry.png',
-		};
-		this.sleepy = {
-			state: 'Sleepy',
-			element: null,
-			path: './images/spritesheets/spritesheet-sleepy.png',
-		};
 		console.log('Tamagotchi initialized');
 
 		this.healthDecrease();
@@ -103,7 +79,8 @@ export default class Tamagotchi {
 	};
 	activeState = () => {
 		if (this.health.value <= 0) {
-			return this.states.dead.stateName;
+			this.currentState = this.states.dead.stateName;
+			return this.currentState;
 		} else if (
 			this.energy.value <= 6 ||
 			this.hunger.value <= 6 ||
@@ -114,19 +91,22 @@ export default class Tamagotchi {
 				this.hunger.importance === 4 ||
 				this.fun.importance === 4
 			) {
-				return this.states.sad.stateName;
+				this.currentState = this.states.sad.stateName;
+				return this.currentState;
 			} else if (
 				this.energy.importance === 3 ||
 				this.hunger.importance === 3 ||
 				this.fun.importance === 3
 			) {
-				return this.states.hungry.stateName;
+				this.currentState = this.states.hungry.stateName;
+				return this.currentState;
 			} else if (
 				this.energy.importance === 2 ||
 				this.hunger.importance === 2 ||
 				this.fun.importance === 2
 			) {
-				return this.states.sleepy.stateName;
+				this.currentState = this.states.sleepy.stateName;
+				return this.currentState;
 			}
 		} else if (
 			this.energy.value >= 7 &&
@@ -134,16 +114,16 @@ export default class Tamagotchi {
 			this.fun.value >= 7 &&
 			this.hunger.value >= 7
 		) {
-			return this.states.happy.stateName;
+			this.currentState = this.states.happy.stateName;
+			return this.currentState;
 		}
 	};
+
 	displayState = (imageSelector) => {
 		const image = document.querySelector(imageSelector);
-		const currentState = this.activeState();
 
-		switch (currentState) {
+		switch (this.currentState) {
 			case this.states.happy.stateName:
-				console.log('works');
 				image.src = this.states.happy.path;
 				this.displayParagraph(this.states.happy.stateName);
 				break;
@@ -163,54 +143,11 @@ export default class Tamagotchi {
 				image.src = this.states.dead.path;
 				this.displayParagraph(this.states.dead.stateName);
 				break;
+			case this.states.eating.stateName:
+				image.src = this.states.eating.path;
+				this.displayParagraph(this.states.eating.stateName);
 		}
-
-		// if (
-		// 	this.energy.value &&
-		// 	this.health.element &&
-		// 	this.fun.value &&
-		// 	this.hunger.value >= 7
-		// ) {
-		// 	image.src = this.initial.path;
-		// 	this.displayParagraph(this.initial.state);
-		// }
-		// if (
-		// 	this.energy.value <= 6 &&
-		// 	this.energy.importance < this.hunger.importance &&
-		// 	this.energy.importance < this.fun.importance
-		// ) {
-		// 	image.src = this.sleepy.path;
-		// 	this.displayParagraph(this.sleepy.state);
-		// }
-		// if (
-		// 	this.hunger.value <= 6 &&
-		// 	this.hunger.importance > this.energy.importance
-		// ) {
-		// 	image.src = this.hungry.path;
-		// 	this.displayParagraph(this.hungry.state);
-		// }
-		// if (this.fun.value <= 6 && this.fun.importance > this.hunger.importance) {
-		// 	image.src = this.sad.path;
-		// 	this.displayParagraph(this.sad.state);
-		// }
-		// if (this.health.value <= 0) {
-		// 	image.src = this.dead.path;
-		// 	this.displayParagraph(this.dead.state);
-		// }
-		// if (image.classList.contains('feedingState')) {
-		// 	image.src = './images/spritesheets/spritesheet-eating.png';
-		// 	this.displayParagraph('feeding');
-		// }
-		// if (image.classList.contains('sleepingState')) {
-		// 	image.src = './images/spritesheets/spritesheet-sleeping.png';
-		// 	this.displayParagraph('sleeping');
-		// }
-		// if (image.classList.contains('playingState')) {
-		// 	image.src = './images/spritesheets/spritesheet-playing.png';
-		// 	this.displayParagraph('playing');
-		// }
 	};
-
 	energyDecrease = () => {
 		const decreaseValue = setInterval(() => {
 			let newDecrementValue = 2;

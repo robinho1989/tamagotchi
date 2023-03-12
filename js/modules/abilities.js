@@ -1,13 +1,18 @@
 export default class Abilities {
-	constructor() {
+	constructor(tamagotchi) {
+		this.tamagotchi = tamagotchi;
+
 		console.log('Abilities module initialized');
 	}
 	abilities = ({ actionButtons }) => {
 		const buttons = document.querySelectorAll(actionButtons);
+
 		buttons.forEach((button) => {
-			button.addEventListener('click', () => {
+			button.addEventListener('mousedown', () => {
+				console.log(` ab ${this.tamagotchi.activeState()}`);
 				if (button.classList.contains('feedingButton')) {
-					console.log('click');
+					this.tamagotchi.currentState =
+						this.tamagotchi.states.eating.stateName;
 				}
 			});
 		});

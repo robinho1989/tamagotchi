@@ -4,7 +4,7 @@ import Tamagotchi from './modules/tamagotchi.js';
 export default class Game {
 	constructor() {
 		this.tamagotchi = new Tamagotchi();
-		this.abilities = new Abilities();
+		this.abilities = new Abilities(this.tamagotchi);
 	}
 
 	start = ({
