@@ -115,7 +115,7 @@ body {
 	position: absolute;
 	bottom: 7px;
 	object-fit: none;
-	object-position: 0 0;
+	/* object-position: 0 0; */
 }
 .imageContainer {
 	width: 150px;
@@ -124,18 +124,13 @@ body {
 	position: relative;
 }
 
-.feedingState {
-	animation: feeding 1s steps(2) infinite;
-	object-position: -150px 0;
+.animatedState {
+	animation: action 1s steps(2) infinite;
 }
 .playingState {
-	animation: playing 1s steps(2) infinite;
-	object-position: -150px 0;
+	animation: play 1s steps(2) infinite;
 }
-.sleepingState {
-	animation: sleeping 1s steps(2) infinite;
-	object-position: -150px 0;
-}
+
 .gameDisplay {
 	border: 10px solid var(--timber);
 }
@@ -179,7 +174,7 @@ body {
 	width: 100%;
 }
 
-@keyframes feeding {
+@keyframes action {
 	from {
 		object-position: 0 0;
 	}
@@ -187,19 +182,11 @@ body {
 		object-position: -300px 0;
 	}
 }
-@keyframes sleeping {
+@keyframes play {
 	from {
 		object-position: 0 0;
 	}
 	to {
-		object-position: -300px 0;
-	}
-}
-@keyframes playing {
-	from {
-		background-position: 0 0;
-	}
-	to {
-		background-position: -300px 0;
+		object-position: -465px 0;
 	}
 }

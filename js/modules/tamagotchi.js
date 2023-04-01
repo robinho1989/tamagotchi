@@ -79,13 +79,12 @@ export default class Tamagotchi {
 		const paragraph = document.querySelector('.tamagotchiStates');
 		paragraph.textContent = textContent;
 	};
-
 	activeState = () => {
-		if (this.updateState !== null) {
-			this.currentState = this.updateState;
-			return this.currentState;
-		} else if (this.health.value <= 0) {
+		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
+			return this.currentState;
+		} else if (this.updateState !== null) {
+			this.currentState = this.updateState;
 			return this.currentState;
 		} else if (
 			this.energy.value <= 6 ||
@@ -124,28 +123,9 @@ export default class Tamagotchi {
 			return this.currentState;
 		}
 	};
-	// displayStateOnClick = (button) => {
-	// 	this.activeState();
-	// 	switch (button) {
-	// 		case 'feedingButton':
-	// 			this.currentState = this.states.eating.stateName;
-	// 			return this.currentState;
-
-	// 		case 'sleepingButton':
-	// 			this.currentState = this.states.sleeping.stateName;
-	// 			return this.currentState;
-	// 		case 'playingButton':
-	// 			this.currentState = this.states.playing.stateName;
-	// 			return this.currentState;
-	// 	}
-	// 	console.log(this.currentState);
-	// };
-
-	displayState = (imageSelector) => {
+	displayState = () => {
 		const image = document.querySelector('.tamagotchiImage');
 		this.activeState();
-		console.log(this.currentState);
-
 		switch (this.currentState) {
 			case this.states.happy.stateName:
 				image.src = this.states.happy.path;
@@ -180,7 +160,6 @@ export default class Tamagotchi {
 				this.displayParagraph(this.states.playing.stateName);
 		}
 	};
-
 	energyDecrease = () => {
 		const decreaseValue = setInterval(() => {
 			let newDecrementValue = 2;
@@ -207,7 +186,6 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayHunger(this.hunger.element);
-			// this.displayState(this.states.happy.element);
 			this.displayState();
 		}, 1000);
 	};
@@ -219,7 +197,6 @@ export default class Tamagotchi {
 				clearInterval(decreaseValue);
 			}
 			this.displayFun(this.fun.element);
-			// this.displayState(this.states.happy.element);
 			this.displayState();
 		}, 1000);
 	};
@@ -232,47 +209,12 @@ export default class Tamagotchi {
 				if (this.health.value <= 0) {
 					clearInterval(decreaseValue);
 				}
-				// this.displayState(this.states.happy.element);
 				this.displayState();
 			}
 		}, 1000);
 	};
-	// feedingAction = (elementSelector) => {
-	// 	const feedingButton = document.querySelector(elementSelector);
-	// 	const image = document.querySelector('.tamagotchiImage');
-	// 	feedingButton.addEventListener('mousedown', () => {
-	// 		// this.displayParagraph('feeding');
-	// 		// image.src = './images/spritesheets/spritesheet-eating.png';
-	// 		image.classList.add('feedingState');
-	// 	});
-	// 	feedingButton.addEventListener('mouseup', () => {
-	// 		image.classList.remove('feedingState');
-	// 	});
-	// };
-	// sleepingAction = (elementSelector) => {
-	// 	const sleepingButton = document.querySelector(elementSelector);
-	// 	const image = document.querySelector('.tamagotchiImage');
-	// 	sleepingButton.addEventListener('mousedown', () => {
-	// 		image.classList.add('sleepingState');
-	// 	});
-	// 	sleepingButton.addEventListener('mouseup', () => {
-	// 		image.classList.remove('sleepingState');
-	// 	});
-	// };
-	// playingAction = (elementSelector) => {
-	// 	const playingButton = document.querySelector(elementSelector);
-	// 	const image = document.querySelector('.tamagotchiImage');
-	// 	playingButton.addEventListener('mousedown', () => {
-	// 		image.classList.add('playingState');
-	// 	});
-	// 	playingButton.addEventListener('mouseup', () => {
-	// 		image.classList.remove('playingState');
-	// 	});
-	// };
+
 	mount = ({
-		// feedingButton,
-		// sleepingButton,
-		// playingButton,
 		healthElement,
 		hungerElement,
 		energyElement,
@@ -289,9 +231,5 @@ export default class Tamagotchi {
 		this.displayHunger(hungerElement);
 		this.displayEnergy(energyElement);
 		this.displayFun(funElement);
-		// this.displayState(imageSelector);
-		// this.feedingAction(feedingButton);
-		// this.playingAction(playingButton);
-		// this.sleepingAction(sleepingButton);
 	};
 }

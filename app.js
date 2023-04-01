@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		feedingButton: '.feedingButton',
 		sleepingButton: '.sleepingButton',
 		playingButton: '.playingButton',
+		animatedImage: '.tamagotchiImage',
 	});
 
 	// Start game
@@ -13,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		hungerElement: '.hunger',
 		energyElement: '.energy',
 		funElement: '.fun',
-		// imageSelector: '.tamagotchiImage',
 	});
 	game.play();
 });
