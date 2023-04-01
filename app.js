@@ -1,18 +1,19 @@
 import Game from './js/game.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-	const game = new Game();
-
-	// Start game
-	game.start({
+	const game = new Game({
 		feedingButton: '.feedingButton',
 		sleepingButton: '.sleepingButton',
 		playingButton: '.playingButton',
+	});
+
+	// Start game
+	game.start({
 		healthElement: '.health',
 		hungerElement: '.hunger',
 		energyElement: '.energy',
 		funElement: '.fun',
-		imageSelector: '.tamagotchiImage',
+		// imageSelector: '.tamagotchiImage',
 	});
-	game.play({ actionButtons: '.gameButton' });
+	game.play();
 });

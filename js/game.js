@@ -2,15 +2,12 @@ import Abilities from './modules/abilities.js';
 import Tamagotchi from './modules/tamagotchi.js';
 
 export default class Game {
-	constructor() {
+	constructor(actionButtons) {
 		this.tamagotchi = new Tamagotchi();
-		this.abilities = new Abilities(this.tamagotchi);
+		this.abilities = new Abilities(this.tamagotchi, actionButtons);
 	}
 
 	start = ({
-		feedingButton,
-		sleepingButton,
-		playingButton,
 		healthElement,
 		hungerElement,
 		energyElement,
@@ -18,17 +15,14 @@ export default class Game {
 		imageSelector,
 	}) => {
 		this.tamagotchi.mount({
-			feedingButton,
-			sleepingButton,
-			playingButton,
 			healthElement,
 			hungerElement,
 			energyElement,
 			funElement,
-			imageSelector,
+			// imageSelector,
 		});
 	};
-	play = ({ actionButtons }) => {
-		this.abilities.abilities({ actionButtons });
+	play = () => {
+		this.abilities.abilities();
 	};
 }
