@@ -39,7 +39,7 @@ export default class Tamagotchi {
 			playing: {
 				stateName: 'playing',
 				element: null,
-				path: './images/spritesheets/spritesheet-playing.png',
+				path: './images/spritesheets/spritesheet-playing3.png',
 			},
 			sleeping: {
 				stateName: 'sleeping',
