@@ -39,7 +39,7 @@ export default class Tamagotchi {
 			playing: {
 				stateName: 'playing',
 				element: null,
-				path: './images/spritesheets/spritesheet-playing3.png',
+				path: './images/spritesheets/spritesheet-playing4.png',
 			},
 			sleeping: {
 				stateName: 'sleeping',
@@ -48,7 +48,9 @@ export default class Tamagotchi {
 			},
 		};
 		this.currentState = this.states.happy.stateName;
-
+		this.container = document.querySelector('.imageContainer');
+		this.image = document.querySelector('.tamagotchiImage');
+		this.image.src = this.states.happy.path;
 		console.log('Tamagotchi initialized');
 
 		this.healthDecrease();
@@ -124,40 +126,57 @@ export default class Tamagotchi {
 		}
 	};
 	displayState = () => {
-		const image = document.querySelector('.tamagotchiImage');
 		this.activeState();
 		switch (this.currentState) {
 			case this.states.happy.stateName:
-				image.src = this.states.happy.path;
+				this.image.src = this.states.happy.path;
 				this.displayParagraph(this.states.happy.stateName);
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('imageSize');
 				break;
 			case this.states.sad.stateName:
-				image.src = this.states.sad.path;
+				this.image.src = this.states.sad.path;
 				this.displayParagraph(this.states.sad.stateName);
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('imageSize');
 				break;
 			case this.states.hungry.stateName:
-				image.src = this.states.hungry.path;
+				this.image.src = this.states.hungry.path;
 				this.displayParagraph(this.states.hungry.stateName);
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('imageSize');
 				break;
 			case this.states.sleepy.stateName:
-				image.src = this.states.sleepy.stateName;
+				this.image.src = this.states.sleepy.stateName;
 				this.displayParagraph(this.states.sleepy.stateName);
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('imageSize');
 				break;
 			case this.states.dead.stateName:
-				image.src = this.states.dead.path;
+				this.image.src = this.states.dead.path;
 				this.displayParagraph(this.states.dead.stateName);
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('imageSize');
 				break;
 			case this.states.eating.stateName:
-				image.src = this.states.eating.path;
+				this.image.src = this.states.eating.path;
 				this.displayParagraph(this.states.eating.stateName);
+				this.container.classList.add('imageSize');
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('standardSize');
 				break;
 			case this.states.sleeping.stateName:
-				image.src = this.states.sleeping.path;
+				this.image.src = this.states.sleeping.path;
 				this.displayParagraph(this.states.sleeping.stateName);
+				this.container.classList.add('imageSize');
+				this.container.classList.remove('playingImageSize');
+				this.container.classList.remove('standardSize');
 				break;
 			case this.states.playing.stateName:
-				image.src = this.states.playing.path;
+				this.image.src = this.states.playing.path;
 				this.displayParagraph(this.states.playing.stateName);
+				this.container.classList.add('playingImageSize');
+				this.container.classList.remove('imageSize');
 		}
 	};
 	energyDecrease = () => {

@@ -9,9 +9,9 @@ export default class Abilities {
 	}
 	abilities = () => {
 		this.feedingButton.addEventListener('mousedown', this.feedingValue);
-		this.feedingButton.addEventListener('mouseup', this.resetValue);
+		this.feedingButton.addEventListener('mouseup', this.resetFeedingValue);
 		this.sleepingButton.addEventListener('mousedown', this.sleepingValue);
-		this.sleepingButton.addEventListener('mouseup', this.resetValue);
+		this.sleepingButton.addEventListener('mouseup', this.resetSleepingValue);
 		this.playingButton.addEventListener('mousedown', this.playingValue);
 		this.playingButton.addEventListener('mouseup', this.resetPlayingValue);
 	};
@@ -30,9 +30,9 @@ export default class Abilities {
 		if (
 			this.tamagotchi.currentState !== this.tamagotchi.states.dead.stateName
 		) {
-			this.animatedImage.classList.add('animatedState');
+			this.animatedImage.classList.add('sleepingState');
 		} else if (this.tamagotchi.health.value === 0) {
-			this.animatedImage.classList.remove('animatedState');
+			this.animatedImage.classList.remove('sleepingState');
 		}
 	};
 	playingValue = () => {
@@ -45,9 +45,13 @@ export default class Abilities {
 			this.animatedImage.classList.remove('playingState');
 		}
 	};
-	resetValue = () => {
+	resetFeedingValue = () => {
 		this.tamagotchi.updateState = null;
 		this.animatedImage.classList.remove('animatedState');
+	};
+	resetSleepingValue = () => {
+		this.tamagotchi.updateState = null;
+		this.animatedImage.classList.remove('sleepingState');
 	};
 	resetPlayingValue = () => {
 		this.tamagotchi.updateState = null;
