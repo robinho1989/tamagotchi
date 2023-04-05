@@ -82,6 +82,7 @@ export default class Tamagotchi {
 		paragraph.textContent = textContent;
 	};
 	activeState = () => {
+		console.log(this.hunger.value);
 		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
 			return this.currentState;
