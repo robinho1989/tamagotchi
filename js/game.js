@@ -1,8 +1,10 @@
+import Abilities from './modules/abilities.js';
 import Tamagotchi from './modules/tamagotchi.js';
 
 export default class Game {
-	constructor() {
+	constructor(actionElements) {
 		this.tamagotchi = new Tamagotchi();
+		this.abilities = new Abilities(this.tamagotchi, actionElements);
 	}
 
 	start = ({ healthElement, hungerElement, energyElement, funElement }) => {
@@ -12,5 +14,8 @@ export default class Game {
 			energyElement,
 			funElement,
 		});
+	};
+	play = () => {
+		this.abilities.abilities();
 	};
 }
