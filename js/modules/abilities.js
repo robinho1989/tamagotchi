@@ -5,6 +5,7 @@ export default class Abilities {
 		this.sleepingButton = document.querySelector(actionElements.sleepingButton);
 		this.playingButton = document.querySelector(actionElements.playingButton);
 		this.animatedImage = document.querySelector(actionElements.animatedImage);
+		this.feedingActionInterval = null;
 		console.log('Abilities module initialized');
 	}
 	abilities = () => {
