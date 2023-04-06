@@ -51,6 +51,7 @@ export default class Tamagotchi {
 		this.container = document.querySelector('.imageContainer');
 		this.image = document.querySelector('.tamagotchiImage');
 		this.image.src = this.states.happy.path;
+		this.hungerDecreaseId = null;
 		console.log('Tamagotchi initialized');
 
 		this.healthDecrease();
@@ -203,6 +204,9 @@ export default class Tamagotchi {
 		const decreaseValue = setInterval(() => {
 			this.hunger.value -= 1;
 			if (this.hunger.value <= 0) {
+				this.hunger.value = 0;
+			}
+			if (this.health.value <= 0) {
 				clearInterval(decreaseValue);
 			}
 			this.displayHunger(this.hunger.element);
