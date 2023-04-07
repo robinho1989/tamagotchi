@@ -193,6 +193,9 @@ export default class Tamagotchi {
 				this.energy.value -= 1;
 			}
 			if (this.energy.value <= 0) {
+				this.energy.value = 0;
+			}
+			if (this.health.value <= 0) {
 				clearInterval(decreaseValue);
 			}
 			this.displayEnergy(this.energy.element);
