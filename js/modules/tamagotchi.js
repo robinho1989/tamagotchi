@@ -221,6 +221,12 @@ export default class Tamagotchi {
 		const decreaseValue = setInterval(() => {
 			this.fun.value -= 1;
 			if (this.fun.value <= 0) {
+				this.fun.value = 0;
+			}
+			if (this.energy.value <= 0) {
+				this.energy.value = 0;
+			}
+			if (this.health.value <= 0) {
 				clearInterval(decreaseValue);
 			}
 			this.displayFun(this.fun.element);
