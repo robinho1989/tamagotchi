@@ -90,33 +90,15 @@ export default class Tamagotchi {
 		} else if (this.updateState !== null) {
 			this.currentState = this.updateState;
 			return this.currentState;
-		} else if (
-			this.energy.value <= 6 ||
-			this.hunger.value <= 6 ||
-			this.fun.value <= 6
-		) {
-			if (
-				this.energy.importance === 4 ||
-				this.hunger.importance === 4 ||
-				this.fun.importance === 4
-			) {
-				this.currentState = this.states.sad.stateName;
-				return this.currentState;
-			} else if (
-				this.energy.importance === 3 ||
-				this.hunger.importance === 3 ||
-				this.fun.importance === 3
-			) {
-				this.currentState = this.states.hungry.stateName;
-				return this.currentState;
-			} else if (
-				this.energy.importance === 2 ||
-				this.hunger.importance === 2 ||
-				this.fun.importance === 2
-			) {
-				this.currentState = this.states.sleepy.stateName;
-				return this.currentState;
-			}
+		} else if (this.energy.value <= 6) {
+			this.currentState = this.states.sad.stateName;
+			return this.currentState;
+		} else if (this.hunger.value <= 6) {
+			this.currentState = this.states.hungry.stateName;
+			return this.currentState;
+		} else if (this.fun.value <= 6) {
+			this.currentState = this.states.sleepy.stateName;
+			return this.currentState;
 		} else if (
 			this.energy.value >= 7 &&
 			this.health.value >= 7 &&
