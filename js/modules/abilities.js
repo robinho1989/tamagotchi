@@ -7,6 +7,7 @@ export default class Abilities {
 		this.animatedImage = document.querySelector(actionElements.animatedImage);
 		this.feedingActionInterval = null;
 		this.sleepingActionInterval = null;
+		this.playingActionInterval = null;
 		console.log('Abilities module initialized');
 	}
 	abilities = () => {
@@ -23,6 +24,7 @@ export default class Abilities {
 		this.feedingActionInterval = setInterval(() => {
 			this.tamagotchi.hunger.value += 3;
 			if (this.tamagotchi.hunger.value > 10) {
+				this.tamagotchi.hunger.value = 10;
 				this.stopFeeding();
 			}
 		}, 1000);
@@ -44,7 +46,6 @@ export default class Abilities {
 			}
 
 			if (this.tamagotchi.energy.value > 10) {
-				this.tamagotchi.energy.value = 10;
 				this.stopSleeping();
 			}
 		}, 1000);
@@ -58,6 +59,18 @@ export default class Abilities {
 	};
 	playingValue = () => {
 		this.tamagotchi.updateState = this.tamagotchi.states.playing.stateName;
+		this.playingActionInterval = setInterval(() => {
+			this.tamagotchi.fun.value += 3;
+			this.tamagotchi.energy.value -= 1;
+			if (this.tamagotchi.fun.value > 10) {
+				this.stopPlaying();
+			// } else if (
+			// 	this.tamagotchi.energy.value < 0 ||
+			// 	this.tamagotchi.fun.value < 0
+			// ) {
+			// 	this.stopPlaying();
+			}
+		}, 1000);
 		if (
 			this.tamagotchi.currentState !== this.tamagotchi.states.dead.stateName
 		) {
@@ -81,6 +94,9 @@ export default class Abilities {
 	resetPlayingValue = () => {
 		this.tamagotchi.updateState = null;
 		this.animatedImage.classList.remove('playingState');
+		// this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+		// this.tamagotchi.displayEnergy(this.tamagotchi.fun.element);
+		this.stopPlaying();
 	};
 
 	stopFeeding = () => {
@@ -89,5 +105,8 @@ export default class Abilities {
 
 	stopSleeping = () => {
 		this.sleepingActionInterval && clearInterval(this.sleepingActionInterval);
+	};
+	stopPlaying = () => {
+		this.playingActionInterval && clearInterval(this.playingActionInterval);
 	};
 }
