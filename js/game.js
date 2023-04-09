@@ -3,7 +3,7 @@ import Tamagotchi from './modules/tamagotchi.js';
 
 export default class Game {
 	constructor(actionElements) {
-		this.tamagotchi = new Tamagotchi();
+		this.tamagotchi = new Tamagotchi(actionElements);
 		this.abilities = new Abilities(this.tamagotchi, actionElements);
 	}
 

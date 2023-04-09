@@ -1,5 +1,5 @@
 export default class Tamagotchi {
-	constructor() {
+	constructor(actionElements) {
 		this.health = { value: 10, importance: 1, element: null };
 		this.hunger = { value: 10, importance: 3, element: null };
 		this.energy = { value: 10, importance: 2, element: null };
@@ -50,10 +50,11 @@ export default class Tamagotchi {
 		this.currentState = this.states.happy.stateName;
 		this.container = document.querySelector('.imageContainer');
 		this.image = document.querySelector('.tamagotchiImage');
+		this.gameButtons = document.querySelector(actionElements.playingButtons);
+		this.restartButton = document.querySelector(actionElements.resetButton);
 		this.image.src = this.states.happy.path;
 		this.hungerDecreaseId = null;
 		console.log('Tamagotchi initialized');
-
 		this.healthDecrease();
 		this.energyDecrease();
 		this.hungerDecrease();
@@ -83,9 +84,10 @@ export default class Tamagotchi {
 		paragraph.textContent = textContent;
 	};
 	activeState = () => {
-		console.log(this.hunger.value);
 		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
+			this.gameButtons.style.display = 'none';
+			this.restartButton.style.display = 'inline-flex';
 			return this.currentState;
 		} else if (this.updateState !== null) {
 			this.currentState = this.updateState;
