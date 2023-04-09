@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		sleepingButton: '.sleepingButton',
 		playingButton: '.playingButton',
 		animatedImage: '.tamagotchiImage',
+		playingButtons: '.gameButtons-list',
+		resetButton: '.gameRestartButton',
 	});
 
 	// Start game

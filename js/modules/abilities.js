@@ -64,11 +64,11 @@ export default class Abilities {
 			this.tamagotchi.energy.value -= 1;
 			if (this.tamagotchi.fun.value > 10) {
 				this.stopPlaying();
-			// } else if (
-			// 	this.tamagotchi.energy.value < 0 ||
-			// 	this.tamagotchi.fun.value < 0
-			// ) {
-			// 	this.stopPlaying();
+				// } else if (
+				// 	this.tamagotchi.energy.value < 0 ||
+				// 	this.tamagotchi.fun.value < 0
+				// ) {
+				// 	this.stopPlaying();
 			}
 		}, 1000);
 		if (
