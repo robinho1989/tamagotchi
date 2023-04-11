@@ -1,5 +1,6 @@
 export default class Tamagotchi {
 	constructor(actionElements) {
+		// to jest taktyczny komentarz :)
 		this.health = { value: 10, importance: 1, element: null };
 		this.hunger = { value: 10, importance: 3, element: null };
 		this.energy = { value: 10, importance: 2, element: null };
