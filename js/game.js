@@ -18,4 +18,7 @@ export default class Game {
 	play = () => {
 		this.abilities.abilities();
 	};
+	reset = () => {
+		this.abilities.resetGame();
+	};
 }
