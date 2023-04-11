@@ -32,6 +32,8 @@ export default class Abilities {
 			this.tamagotchi.currentState !== this.tamagotchi.states.dead.stateName
 		) {
 			this.animatedImage.classList.add('animatedState');
+			this.animatedImage.classList.remove('sleepingState');
+			this.animatedImage.classList.remove('playingState');
 		} else if (this.tamagotchi.health.value === 0) {
 			this.animatedImage.classList.remove('animatedState');
 		}
@@ -53,6 +55,8 @@ export default class Abilities {
 			this.tamagotchi.currentState !== this.tamagotchi.states.dead.stateName
 		) {
 			this.animatedImage.classList.add('sleepingState');
+			this.animatedImage.classList.remove('animatedState');
+			this.animatedImage.classList.remove('playingState');
 		} else if (this.tamagotchi.health.value === 0) {
 			this.animatedImage.classList.remove('sleepingState');
 		}
@@ -70,6 +74,8 @@ export default class Abilities {
 			this.tamagotchi.currentState !== this.tamagotchi.states.dead.stateName
 		) {
 			this.animatedImage.classList.add('playingState');
+			this.animatedImage.classList.remove('sleepingState');
+			this.animatedImage.classList.remove('animatedState');
 		} else if (this.tamagotchi.health.value === 0) {
 			this.animatedImage.classList.remove('playingState');
 		}
