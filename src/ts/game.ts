@@ -2,7 +2,7 @@ import Abilities from './modules/abilities';
 import Tamagotchi from './modules/tamagotchi';
 
 export default class Game {
-	constructor(actionElements: ActionElements) {
+	constructor(actionElements) {
 		this.tamagotchi = new Tamagotchi(actionElements);
 		this.abilities = new Abilities(this.tamagotchi, actionElements);
 	}
