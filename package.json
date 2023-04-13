@@ -1,0 +1,23 @@
+{
+	"name": "tamagotchi",
+	"version": "1.0.0",
+	"description": "<h1 align=\"center\">\r   Tamagotchi 👾\r </h1>",
+	"main": "app.js",
+	"scripts": {
+		"start": "tsc --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/robinho1989/tamagotchi.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/robinho1989/tamagotchi/issues"
+	},
+	"homepage": "https://github.com/robinho1989/tamagotchi#readme",
+	"devDependencies": {
+		"typescript": "^5.0.4"
+	}
+}

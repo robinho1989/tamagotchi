@@ -1,5 +1,5 @@
-import Abilities from './modules/abilities.js';
-import Tamagotchi from './modules/tamagotchi.js';
+import Abilities from './modules/abilities';
+import Tamagotchi from './modules/tamagotchi';
 
 export default class Game {
 	constructor(actionElements) {
