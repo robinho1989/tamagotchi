@@ -1,3 +1,14 @@
+var TamagoStates;
+(function (TamagoStates) {
+    TamagoStates["happy"] = "happy";
+    TamagoStates["dead"] = "dead";
+    TamagoStates["sad"] = "sad";
+    TamagoStates["hungry"] = "hungry";
+    TamagoStates["sleepy"] = "sleepy";
+    TamagoStates["eating"] = "eating";
+    TamagoStates["playing"] = "playing";
+    TamagoStates["sleeping"] = "sleeping";
+})(TamagoStates || (TamagoStates = {}));
 export default class Tamagotchi {
     constructor(actionElements) {
         this.displayNewState = () => {
@@ -5,29 +16,49 @@ export default class Tamagotchi {
         };
         this.displayHealth = (elementSelector) => {
             const displayElement = document.querySelector(elementSelector);
-            displayElement.innerText = this.health.value;
+            if (!displayElement) {
+                throw Error("Element not found");
+            }
+            displayElement.innerText = String(this.health.value);
         };
         this.displayHunger = (elementSelector) => {
             const displayElement = document.querySelector(elementSelector);
-            displayElement.innerText = this.hunger.value;
+            if (!displayElement) {
+                throw Error("Element not found");
+            }
+            displayElement.innerText = String(this.hunger.value);
         };
         this.displayEnergy = (elementSelector) => {
             const displayElement = document.querySelector(elementSelector);
-            displayElement.innerText = this.energy.value;
+            if (!displayElement) {
+                throw Error("Element not found");
+            }
+            displayElement.innerText = String(this.energy.value);
         };
         this.displayFun = (elementSelector) => {
             const displayElement = document.querySelector(elementSelector);
-            displayElement.innerText = this.fun.value;
+            if (!displayElement) {
+                throw Error("Element not found");
+            }
+            displayElement.innerText = String(this.fun.value);
         };
         this.displayParagraph = (textContent) => {
-            const paragraph = document.querySelector('.tamagotchiStates');
-            paragraph.textContent = textContent;
+            const paragraph = document.querySelector(".tamagotchiStates");
+            if (!!paragraph) {
+                paragraph.textContent = textContent;
+            }
+            else {
+                console.warn("paragraph not found");
+            }
         };
         this.activeState = () => {
+            if (!this.gameButtons || !this.restartButton) {
+                throw Error("No action buttons found");
+            }
             if (this.health.value <= 0) {
                 this.currentState = this.states.dead.stateName;
-                this.gameButtons.style.display = 'none';
-                this.restartButton.style.display = 'inline-flex';
+                this.gameButtons.style.display = "none";
+                this.restartButton.style.display = "inline-flex";
                 return this.currentState;
             }
             else if (this.updateState !== null) {
@@ -55,57 +86,60 @@ export default class Tamagotchi {
             }
         };
         this.displayState = () => {
+            if (!this.container || !this.image) {
+                throw Error("No container or image found!");
+            }
             this.activeState();
             switch (this.currentState) {
                 case this.states.happy.stateName:
                     this.image.src = this.states.happy.path;
                     this.displayParagraph(this.states.happy.stateName);
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("imageSize");
                     break;
                 case this.states.sad.stateName:
                     this.image.src = this.states.sad.path;
                     this.displayParagraph(this.states.sad.stateName);
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("imageSize");
                     break;
                 case this.states.hungry.stateName:
                     this.image.src = this.states.hungry.path;
                     this.displayParagraph(this.states.hungry.stateName);
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("imageSize");
                     break;
                 case this.states.sleepy.stateName:
                     this.image.src = this.states.sleepy.stateName;
                     this.displayParagraph(this.states.sleepy.stateName);
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("imageSize");
                     break;
                 case this.states.dead.stateName:
                     this.image.src = this.states.dead.path;
                     this.displayParagraph(this.states.dead.stateName);
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("imageSize");
                     break;
                 case this.states.eating.stateName:
                     this.image.src = this.states.eating.path;
                     this.displayParagraph(this.states.eating.stateName);
-                    this.container.classList.add('imageSize');
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('standardSize');
+                    this.container.classList.add("imageSize");
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("standardSize");
                     break;
                 case this.states.sleeping.stateName:
                     this.image.src = this.states.sleeping.path;
                     this.displayParagraph(this.states.sleeping.stateName);
-                    this.container.classList.add('imageSize');
-                    this.container.classList.remove('playingImageSize');
-                    this.container.classList.remove('standardSize');
+                    this.container.classList.add("imageSize");
+                    this.container.classList.remove("playingImageSize");
+                    this.container.classList.remove("standardSize");
                     break;
                 case this.states.playing.stateName:
                     this.image.src = this.states.playing.path;
                     this.displayParagraph(this.states.playing.stateName);
-                    this.container.classList.add('playingImageSize');
-                    this.container.classList.remove('imageSize');
+                    this.container.classList.add("playingImageSize");
+                    this.container.classList.remove("imageSize");
             }
         };
         this.energyDecrease = () => {
@@ -126,6 +160,9 @@ export default class Tamagotchi {
                 if (this.health.value <= 0) {
                     clearInterval(decreaseValue);
                 }
+                if (!this.energy.element) {
+                    throw Error("Energy element not found");
+                }
                 this.displayEnergy(this.energy.element);
                 this.displayState();
             }, 2000);
@@ -138,6 +175,9 @@ export default class Tamagotchi {
                 }
                 if (this.health.value <= 0) {
                     clearInterval(decreaseValue);
+                }
+                if (!this.hunger.element) {
+                    throw Error("Hunger element not found");
                 }
                 this.displayHunger(this.hunger.element);
                 this.displayState();
@@ -155,6 +195,9 @@ export default class Tamagotchi {
                 if (this.health.value <= 0) {
                     clearInterval(decreaseValue);
                 }
+                if (!this.fun.element) {
+                    throw Error("Fun element not found");
+                }
                 this.displayFun(this.fun.element);
                 this.displayState();
             }, 1000);
@@ -163,6 +206,9 @@ export default class Tamagotchi {
             const decreaseValue = setInterval(() => {
                 if (this.energy.value <= 0 || this.hunger.value <= 0) {
                     this.health.value -= 1;
+                    if (!this.health.element) {
+                        throw Error("Health element not found");
+                    }
                     this.displayHealth(this.health.element);
                     if (this.health.value <= 0) {
                         clearInterval(decreaseValue);
@@ -186,61 +232,60 @@ export default class Tamagotchi {
         this.hunger = { value: 10, importance: 3, element: null };
         this.energy = { value: 10, importance: 2, element: null };
         this.fun = { value: 10, importance: 4, element: null };
-        this.updateState = null;
         this.states = {
             happy: {
-                stateName: 'happy',
+                stateName: TamagoStates.happy,
                 element: null,
-                path: './images/spritesheets/happyTamatgochi.png',
+                path: "./images/spritesheets/happyTamatgochi.png",
             },
             dead: {
-                stateName: 'dead',
+                stateName: TamagoStates.dead,
                 element: null,
-                path: './images/spritesheets/spritesheet-dead.png',
+                path: "./images/spritesheets/spritesheet-dead.png",
             },
             sad: {
-                stateName: 'sad',
+                stateName: TamagoStates.sad,
                 element: null,
-                path: './images/spritesheets/spritesheet-sitting.png',
+                path: "./images/spritesheets/spritesheet-sitting.png",
             },
             hungry: {
-                stateName: 'hungry',
+                stateName: TamagoStates.hungry,
                 element: null,
-                path: './images/spritesheets/spritesheet-hungry.png',
+                path: "./images/spritesheets/spritesheet-hungry.png",
             },
             sleepy: {
-                stateName: 'sleepy',
+                stateName: TamagoStates.sleepy,
                 element: null,
-                path: './images/spritesheets/spritesheet-sleepy.png',
+                path: "./images/spritesheets/spritesheet-sleepy.png",
             },
             eating: {
-                stateName: 'eating',
+                stateName: TamagoStates.eating,
                 element: null,
-                path: './images/spritesheets/spritesheet-eating.png',
+                path: "./images/spritesheets/spritesheet-eating.png",
             },
             playing: {
-                stateName: 'playing',
+                stateName: TamagoStates.playing,
                 element: null,
-                path: './images/spritesheets/spritesheet-playing4.png',
+                path: "./images/spritesheets/spritesheet-playing4.png",
             },
             sleeping: {
-                stateName: 'sleeping',
+                stateName: TamagoStates.sleeping,
                 element: null,
-                path: './images/spritesheets/spritesheet-sleeping.png',
+                path: "./images/spritesheets/spritesheet-sleeping.png",
             },
         };
         this.currentState = this.states.happy.stateName;
-        this.container = document.querySelector('.imageContainer');
-        this.image = document.querySelector('.tamagotchiImage');
+        this.updateState = null;
+        this.container = document.querySelector(".imageContainer");
+        this.image = document.querySelector(".tamagotchiImage");
         this.gameButtons = document.querySelector(actionElements.playingButtons);
         this.restartButton = document.querySelector(actionElements.resetButton);
-        this.image.src = this.states.happy.path;
         this.hungerDecreaseId = null;
-        console.log('Tamagotchi initialized');
+        console.log("Tamagotchi initialized");
         this.healthDecrease();
         this.energyDecrease();
         this.hungerDecrease();
         this.funDecrease();
-        console.log('click');
+        console.log("click");
     }
 }
