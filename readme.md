@@ -18,3 +18,6 @@ This project is about recreating famous game.
 ### 🔧 Technical requirements
 
 HTML, CSS, Javascript
+
+### Web adress
+- https://robinho1989.github.io/tamagotchi/
