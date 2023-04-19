@@ -1,6 +1,11 @@
 export default class Abilities {
     constructor(tamagotchi, actionElements) {
         this.abilities = () => {
+            if (this.feedingButton === null ||
+                this.sleepingButton === null ||
+                this.playingButton === null) {
+                throw new Error('One of buttons not found');
+            }
             this.feedingButton.addEventListener('mousedown', this.feedingValue);
             this.feedingButton.addEventListener('mouseup', this.resetFeedingValue);
             this.sleepingButton.addEventListener('mousedown', this.sleepingValue);
@@ -9,6 +14,9 @@ export default class Abilities {
             this.playingButton.addEventListener('mouseup', this.resetPlayingValue);
         };
         this.feedingValue = () => {
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
             this.tamagotchi.updateState = this.tamagotchi.states.eating.stateName;
             this.feedingActionInterval = setInterval(() => {
                 this.tamagotchi.hunger.value += 3;
@@ -27,6 +35,9 @@ export default class Abilities {
             }
         };
         this.sleepingValue = () => {
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
             this.tamagotchi.updateState = this.tamagotchi.states.sleeping.stateName;
             this.sleepingActionInterval = setInterval(() => {
                 if (this.tamagotchi.fun.value <= 0) {
@@ -49,6 +60,10 @@ export default class Abilities {
             }
         };
         this.playingValue = () => {
+            console.log('click');
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
             this.tamagotchi.updateState = this.tamagotchi.states.playing.stateName;
             this.playingActionInterval = setInterval(() => {
                 this.tamagotchi.fun.value += 3;
@@ -67,18 +82,33 @@ export default class Abilities {
             }
         };
         this.resetFeedingValue = () => {
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
+            if (this.tamagotchi.hunger.element === null) {
+                throw new Error('Hunger element not found');
+            }
             this.tamagotchi.updateState = null;
             this.animatedImage.classList.remove('animatedState');
             this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
             this.stopFeeding();
         };
         this.resetSleepingValue = () => {
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
+            if (this.tamagotchi.energy.element === null) {
+                throw new Error('Energy element not found');
+            }
             this.tamagotchi.updateState = null;
             this.animatedImage.classList.remove('sleepingState');
             this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
             this.stopSleeping();
         };
         this.resetPlayingValue = () => {
+            if (this.animatedImage === null) {
+                throw new Error('An image not found');
+            }
             this.tamagotchi.updateState = null;
             this.animatedImage.classList.remove('playingState');
             this.stopPlaying();
@@ -93,9 +123,22 @@ export default class Abilities {
             this.playingActionInterval && clearInterval(this.playingActionInterval);
         };
         this.resetGame = () => {
+            if (this.tamagotchi.restartButton === null) {
+                throw new Error('Restart button not found');
+            }
             this.tamagotchi.restartButton.addEventListener('click', this.handleReset);
         };
         this.handleReset = () => {
+            if (this.tamagotchi.gameButtons === null ||
+                this.tamagotchi.restartButton === null) {
+                throw new Error('One of action buttons not found');
+            }
+            if (this.tamagotchi.energy.element === null ||
+                this.tamagotchi.hunger.element === null ||
+                this.tamagotchi.health.element === null ||
+                this.tamagotchi.fun.element === null) {
+                throw new Error('One of elements not found');
+            }
             this.tamagotchi.gameButtons.style.display = 'flex';
             this.tamagotchi.restartButton.style.display = 'none';
             this.tamagotchi.health.value = 10;

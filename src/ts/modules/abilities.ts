@@ -1,5 +1,5 @@
 import { ActionElements } from '../types';
-import Tamagotchi from './tamagotchi';
+import Tamagotchi from './tamagotchi.js';
 
 export default class Abilities {
 	private tamagotchi: Tamagotchi;
@@ -87,6 +87,7 @@ export default class Abilities {
 		}
 	};
 	playingValue = () => {
+		console.log('click')
 		if (this.animatedImage === null) {
 			throw new Error('An image not found');
 		}
