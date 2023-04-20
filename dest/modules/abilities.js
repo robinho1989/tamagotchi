@@ -42,7 +42,7 @@ export default class Abilities {
                 else {
                     this.tamagotchi.energy.value += 3;
                 }
-                if (this.tamagotchi.energy.value > 10) {
+                if (this.tamagotchi.energy.value >= 10) {
                     this.stopSleeping();
                 }
             }, 1000);
@@ -82,8 +82,10 @@ export default class Abilities {
             this.animatedImage.classList.remove('animatedState');
             this.animatedImage.classList.remove('sleepingState');
             this.animatedImage.classList.remove('playingState');
-            this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+            // this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
             this.stopFeeding();
+            this.stopPlaying();
+            this.stopSleeping();
         };
         this.resetSleepingValue = () => {
             if (this.animatedImage === null) {
@@ -96,7 +98,9 @@ export default class Abilities {
             this.animatedImage.classList.remove('sleepingState');
             this.animatedImage.classList.remove('animatedState');
             this.animatedImage.classList.remove('playingState');
-            this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+            // this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+            this.stopFeeding();
+            this.stopPlaying();
             this.stopSleeping();
         };
         this.resetPlayingValue = () => {
@@ -107,7 +111,9 @@ export default class Abilities {
             this.animatedImage.classList.remove('playingState');
             this.animatedImage.classList.remove('animatedState');
             this.animatedImage.classList.remove('sleepingState');
+            this.stopFeeding();
             this.stopPlaying();
+            this.stopSleeping();
         };
         this.stopFeeding = () => {
             this.feedingActionInterval && clearInterval(this.feedingActionInterval);
@@ -140,6 +146,8 @@ export default class Abilities {
             }
             this.tamagotchi.gameButtons.style.display = 'flex';
             this.tamagotchi.restartButton.style.display = 'none';
+            this.tamagotchi.updateState = null;
+            this.tamagotchi.currentState = this.tamagotchi.states.happy.stateName;
             this.tamagotchi.health.value = 10;
             this.tamagotchi.hunger.value = 10;
             this.tamagotchi.energy.value = 10;
