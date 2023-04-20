@@ -198,5 +198,8 @@ export default class Abilities {
 		this.animatedImage.classList.remove('playingState');
 		this.animatedImage.classList.remove('sleepingState');
 		this.animatedImage.classList.remove('animatedState');
+		this.stopFeeding()
+		this.stopPlaying()
+		this.stopSleeping()
 	};
 }
