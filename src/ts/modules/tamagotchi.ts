@@ -144,10 +144,16 @@ export default class Tamagotchi {
 		if (this.gameButtons === null || this.restartButton === null) {
 			throw new Error('Buttons not found');
 		}
+		if(this.image===null){
+			throw new Error('Image not found')
+		}
 		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
 			this.gameButtons.style.display = 'none';
 			this.restartButton.style.display = 'inline-flex';
+			this.image.classList.remove('playingState');
+			this.image.classList.remove('animatedState');
+			this.image.classList.remove('sleepingState');
 			return this.currentState;
 		} else if (this.updateState !== null) {
 			this.currentState = this.updateState;

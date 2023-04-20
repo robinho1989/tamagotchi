@@ -45,8 +45,8 @@ export default class Abilities {
 		this.tamagotchi.updateState = this.tamagotchi.states.eating.stateName;
 		this.feedingActionInterval = setInterval(() => {
 			this.tamagotchi.hunger.value += 3;
-			if (this.tamagotchi.hunger.value > 10) {
-				this.tamagotchi.hunger.value = 10;
+
+			if (this.tamagotchi.hunger.value >= 10) {
 				this.stopFeeding();
 			}
 		}, 1000);
@@ -56,8 +56,6 @@ export default class Abilities {
 			this.animatedImage.classList.add('animatedState');
 			this.animatedImage.classList.remove('sleepingState');
 			this.animatedImage.classList.remove('playingState');
-		} else if (this.tamagotchi.health.value === 0) {
-			this.animatedImage.classList.remove('animatedState');
 		}
 	};
 	sleepingValue = () => {
@@ -82,12 +80,10 @@ export default class Abilities {
 			this.animatedImage.classList.add('sleepingState');
 			this.animatedImage.classList.remove('animatedState');
 			this.animatedImage.classList.remove('playingState');
-		} else if (this.tamagotchi.health.value === 0) {
-			this.animatedImage.classList.remove('sleepingState');
 		}
 	};
 	playingValue = () => {
-		console.log('click')
+		console.log('click');
 		if (this.animatedImage === null) {
 			throw new Error('An image not found');
 		}
@@ -105,8 +101,6 @@ export default class Abilities {
 			this.animatedImage.classList.add('playingState');
 			this.animatedImage.classList.remove('sleepingState');
 			this.animatedImage.classList.remove('animatedState');
-		} else if (this.tamagotchi.health.value === 0) {
-			this.animatedImage.classList.remove('playingState');
 		}
 	};
 	resetFeedingValue = () => {
@@ -118,6 +112,8 @@ export default class Abilities {
 		}
 		this.tamagotchi.updateState = null;
 		this.animatedImage.classList.remove('animatedState');
+		this.animatedImage.classList.remove('sleepingState');
+		this.animatedImage.classList.remove('playingState');
 		this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
 		this.stopFeeding();
 	};
@@ -130,6 +126,8 @@ export default class Abilities {
 		}
 		this.tamagotchi.updateState = null;
 		this.animatedImage.classList.remove('sleepingState');
+		this.animatedImage.classList.remove('animatedState');
+		this.animatedImage.classList.remove('playingState');
 		this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
 		this.stopSleeping();
 	};
@@ -139,6 +137,8 @@ export default class Abilities {
 		}
 		this.tamagotchi.updateState = null;
 		this.animatedImage.classList.remove('playingState');
+		this.animatedImage.classList.remove('animatedState');
+		this.animatedImage.classList.remove('sleepingState');
 		this.stopPlaying();
 	};
 
@@ -173,6 +173,9 @@ export default class Abilities {
 		) {
 			throw new Error('One of elements not found');
 		}
+		if (this.animatedImage === null) {
+			throw new Error('Tamago image not found');
+		}
 		this.tamagotchi.gameButtons.style.display = 'flex';
 		this.tamagotchi.restartButton.style.display = 'none';
 		this.tamagotchi.health.value = 10;
@@ -192,5 +195,8 @@ export default class Abilities {
 		this.tamagotchi.hungerDecrease();
 		this.tamagotchi.funDecrease();
 		this.tamagotchi.healthDecrease();
+		this.animatedImage.classList.remove('playingState');
+		this.animatedImage.classList.remove('sleepingState');
+		this.animatedImage.classList.remove('animatedState');
 	};
 }
