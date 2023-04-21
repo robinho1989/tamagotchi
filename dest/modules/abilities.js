@@ -18,9 +18,20 @@ export default class Abilities {
                 throw new Error('An image not found');
             }
             this.tamagotchi.updateState = this.tamagotchi.states.eating.stateName;
+            this.tamagotchi.stopHungerDecrease();
             this.feedingActionInterval = setInterval(() => {
-                this.tamagotchi.hunger.value += 3;
-                if (this.tamagotchi.hunger.value >= 10) {
+                if (this.tamagotchi.hunger.element === null) {
+                    throw new Error('Hunger element not found');
+                }
+                this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+                if (this.tamagotchi.hunger.value < 9) {
+                    this.tamagotchi.hunger.value += 2;
+                }
+                else if (this.tamagotchi.hunger.value === 9) {
+                    this.tamagotchi.hunger.value += 1;
+                }
+                else {
+                    this.tamagotchi.hunger.value = 10;
                     this.stopFeeding();
                 }
             }, 1000);
@@ -29,6 +40,7 @@ export default class Abilities {
                 this.animatedImage.classList.remove('sleepingState');
                 this.animatedImage.classList.remove('playingState');
             }
+            console.log(this.tamagotchi.hunger.value);
         };
         this.sleepingValue = () => {
             if (this.animatedImage === null) {
@@ -53,7 +65,6 @@ export default class Abilities {
             }
         };
         this.playingValue = () => {
-            console.log('click');
             if (this.animatedImage === null) {
                 throw new Error('An image not found');
             }
@@ -82,7 +93,8 @@ export default class Abilities {
             this.animatedImage.classList.remove('animatedState');
             this.animatedImage.classList.remove('sleepingState');
             this.animatedImage.classList.remove('playingState');
-            // this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+            this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+            this.tamagotchi.hungerDecrease();
             this.stopFeeding();
             this.stopPlaying();
             this.stopSleeping();
@@ -98,7 +110,7 @@ export default class Abilities {
             this.animatedImage.classList.remove('sleepingState');
             this.animatedImage.classList.remove('animatedState');
             this.animatedImage.classList.remove('playingState');
-            // this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+            this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
             this.stopFeeding();
             this.stopPlaying();
             this.stopSleeping();

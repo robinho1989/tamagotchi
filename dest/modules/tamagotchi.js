@@ -172,13 +172,16 @@ export default class Tamagotchi {
             }, 2000);
         };
         this.hungerDecrease = () => {
-            const decreaseValue = setInterval(() => {
+            this.hungerDecreaseId = setInterval(() => {
+                if (this.hungerDecreaseId === null) {
+                    throw new Error('Hunger interval is not set');
+                }
                 this.hunger.value -= 1;
                 if (this.hunger.value <= 0) {
                     this.hunger.value = 0;
                 }
                 if (this.health.value <= 0) {
-                    clearInterval(decreaseValue);
+                    clearInterval(this.hungerDecreaseId);
                 }
                 if (this.hunger.element === null) {
                     throw new Error('Hunger element not found');
@@ -284,11 +287,16 @@ export default class Tamagotchi {
         this.gameButtons = document.querySelector(actionElements.playingButtons);
         this.restartButton = document.querySelector(actionElements.resetButton);
         this.hungerDecreaseId = null;
+        this.energyDecreaseId = null;
+        this.funDecreaseId = null;
         console.log('Tamagotchi initialized');
         this.healthDecrease();
         this.energyDecrease();
         this.hungerDecrease();
         this.funDecrease();
-        console.log('click');
+    }
+    stopHungerDecrease() {
+        if (this.hungerDecreaseId !== null)
+            clearInterval(this.hungerDecreaseId);
     }
 }

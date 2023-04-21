@@ -36,6 +36,8 @@ export default class Tamagotchi {
 	gameButtons: HTMLDivElement | null;
 	restartButton: HTMLButtonElement | null;
 	hungerDecreaseId: number | null;
+	energyDecreaseId: null | number;
+	funDecreaseId: null | number;
 	constructor(actionElements: ActionElements) {
 		this.health = { value: 10, importance: 1, element: null };
 		this.hunger = { value: 10, importance: 3, element: null };
@@ -90,12 +92,14 @@ export default class Tamagotchi {
 		this.gameButtons = document.querySelector(actionElements.playingButtons);
 		this.restartButton = document.querySelector(actionElements.resetButton);
 		this.hungerDecreaseId = null;
+		this.energyDecreaseId = null;
+		this.funDecreaseId = null;
+
 		console.log('Tamagotchi initialized');
 		this.healthDecrease();
 		this.energyDecrease();
 		this.hungerDecrease();
 		this.funDecrease();
-		console.log('click');
 	}
 	displayNewState = () => {
 		return this.updateState;
@@ -144,8 +148,8 @@ export default class Tamagotchi {
 		if (this.gameButtons === null || this.restartButton === null) {
 			throw new Error('Buttons not found');
 		}
-		if(this.image===null){
-			throw new Error('Image not found')
+		if (this.image === null) {
+			throw new Error('Image not found');
 		}
 		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
@@ -260,13 +264,16 @@ export default class Tamagotchi {
 	};
 
 	hungerDecrease = () => {
-		const decreaseValue = setInterval(() => {
+		this.hungerDecreaseId = setInterval(() => {
+			if (this.hungerDecreaseId === null) {
+				throw new Error('Hunger interval is not set');
+			}
 			this.hunger.value -= 1;
 			if (this.hunger.value <= 0) {
 				this.hunger.value = 0;
 			}
 			if (this.health.value <= 0) {
-				clearInterval(decreaseValue);
+				clearInterval(this.hungerDecreaseId);
 			}
 			if (this.hunger.element === null) {
 				throw new Error('Hunger element not found');
@@ -275,7 +282,10 @@ export default class Tamagotchi {
 			this.displayState();
 		}, 1000);
 	};
-
+	stopHungerDecrease() {
+		if (this.hungerDecreaseId !== null) clearInterval(this.hungerDecreaseId);
+		
+	}
 	funDecrease = () => {
 		const decreaseValue = setInterval(() => {
 			this.fun.value -= 1;
