@@ -21,6 +21,7 @@ export default class Abilities {
 		this.sleepingActionInterval = null;
 		this.playingActionInterval = null;
 		console.log('Abilities module initialized');
+		console.log(this.tamagotchi.energy.value);
 	}
 	abilities = () => {
 		if (
@@ -51,7 +52,10 @@ export default class Abilities {
 			}
 			this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
 
-			if (this.tamagotchi.hunger.value < 9) {
+			if (
+				this.tamagotchi.hunger.value < 9 &&
+				this.tamagotchi.health.value !== 0
+			) {
 				this.tamagotchi.hunger.value += 2;
 			} else if (this.tamagotchi.hunger.value === 9) {
 				this.tamagotchi.hunger.value += 1;
@@ -67,21 +71,27 @@ export default class Abilities {
 			this.animatedImage.classList.remove('sleepingState');
 			this.animatedImage.classList.remove('playingState');
 		}
-		console.log(this.tamagotchi.hunger.value);
 	};
 	sleepingValue = () => {
 		if (this.animatedImage === null) {
 			throw new Error('An image not found');
 		}
 		this.tamagotchi.updateState = this.tamagotchi.states.sleeping.stateName;
+		this.tamagotchi.stopEnergyDecrease();
 		this.sleepingActionInterval = setInterval(() => {
-			if (this.tamagotchi.fun.value <= 0) {
-				this.tamagotchi.energy.value += 2;
-			} else {
-				this.tamagotchi.energy.value += 3;
+			if (this.tamagotchi.energy.element === null) {
+				throw new Error('Energy element not found');
 			}
-
-			if (this.tamagotchi.energy.value >= 10) {
+			this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+			if (
+				this.tamagotchi.energy.value < 9 &&
+				this.tamagotchi.health.value !== 0
+			) {
+				this.tamagotchi.energy.value += 2;
+			} else if (this.tamagotchi.energy.value === 9) {
+				this.tamagotchi.energy.value += 1;
+			} else {
+				this.tamagotchi.energy.value = 10;
 				this.stopSleeping();
 			}
 		}, 1000);
@@ -141,6 +151,7 @@ export default class Abilities {
 		this.animatedImage.classList.remove('sleepingState');
 		this.animatedImage.classList.remove('animatedState');
 		this.animatedImage.classList.remove('playingState');
+		this.tamagotchi.energyDecrease();
 		this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
 		this.stopFeeding();
 		this.stopPlaying();
