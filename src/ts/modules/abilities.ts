@@ -204,6 +204,8 @@ export default class Abilities {
 		if (this.animatedImage === null) {
 			throw new Error('Tamago image not found');
 		}
+		this.tamagotchi.stopHungerDecrease()
+		this.tamagotchi.stopEnergyDecrease()
 		this.tamagotchi.gameButtons.style.display = 'flex';
 		this.tamagotchi.restartButton.style.display = 'none';
 		this.tamagotchi.updateState = null;
