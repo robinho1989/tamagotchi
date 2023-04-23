@@ -36,6 +36,8 @@ export default class Tamagotchi {
 	gameButtons: HTMLDivElement | null;
 	restartButton: HTMLButtonElement | null;
 	hungerDecreaseId: number | null;
+	energyDecreaseId: null | number;
+	funDecreaseId: null | number;
 	constructor(actionElements: ActionElements) {
 		this.health = { value: 10, importance: 1, element: null };
 		this.hunger = { value: 10, importance: 3, element: null };
@@ -84,18 +86,25 @@ export default class Tamagotchi {
 				path: './images/spritesheets/spritesheet-sleeping.png',
 			},
 		};
+
 		this.currentState = this.states.happy.stateName;
 		this.container = document.querySelector('.imageContainer');
 		this.image = document.querySelector('.tamagotchiImage');
+		if (this.image === null) {
+			throw new Error('Image not found');
+		}
+		this.image.src = this.states.happy.path;
 		this.gameButtons = document.querySelector(actionElements.playingButtons);
 		this.restartButton = document.querySelector(actionElements.resetButton);
 		this.hungerDecreaseId = null;
+		this.energyDecreaseId = null;
+		this.funDecreaseId = null;
+
 		console.log('Tamagotchi initialized');
 		this.healthDecrease();
 		this.energyDecrease();
 		this.hungerDecrease();
 		this.funDecrease();
-		console.log('click');
 	}
 	displayNewState = () => {
 		return this.updateState;
@@ -144,10 +153,16 @@ export default class Tamagotchi {
 		if (this.gameButtons === null || this.restartButton === null) {
 			throw new Error('Buttons not found');
 		}
+		if (this.image === null) {
+			throw new Error('Image not found');
+		}
 		if (this.health.value <= 0) {
 			this.currentState = this.states.dead.stateName;
 			this.gameButtons.style.display = 'none';
 			this.restartButton.style.display = 'inline-flex';
+			this.image.classList.remove('playingState');
+			this.image.classList.remove('animatedState');
+			this.image.classList.remove('sleepingState');
 			return this.currentState;
 		} else if (this.updateState !== null) {
 			this.currentState = this.updateState;
@@ -229,7 +244,10 @@ export default class Tamagotchi {
 		}
 	};
 	energyDecrease = () => {
-		const decreaseValue = setInterval(() => {
+		this.energyDecreaseId = setInterval(() => {
+			if (this.energyDecreaseId === null) {
+				throw new Error('Energy interval is not set');
+			}
 			let newDecrementValue = 2;
 			if (this.fun.value <= 0) {
 				this.energy.value -= newDecrementValue;
@@ -243,7 +261,7 @@ export default class Tamagotchi {
 				this.energy.value = 0;
 			}
 			if (this.health.value <= 0) {
-				clearInterval(decreaseValue);
+				clearInterval(this.energyDecreaseId);
 			}
 			if (this.energy.element === null) {
 				throw new Error('Energy element not found');
@@ -251,16 +269,22 @@ export default class Tamagotchi {
 			this.displayEnergy(this.energy.element);
 			this.displayState();
 		}, 2000);
+			if (this.health.value === 0) {
+			return;
+		}
 	};
 
 	hungerDecrease = () => {
-		const decreaseValue = setInterval(() => {
+		this.hungerDecreaseId = setInterval(() => {
+			if (this.hungerDecreaseId === null) {
+				throw new Error('Hunger interval is not set');
+			}
 			this.hunger.value -= 1;
 			if (this.hunger.value <= 0) {
 				this.hunger.value = 0;
 			}
 			if (this.health.value <= 0) {
-				clearInterval(decreaseValue);
+				clearInterval(this.hungerDecreaseId);
 			}
 			if (this.hunger.element === null) {
 				throw new Error('Hunger element not found');
@@ -268,10 +292,16 @@ export default class Tamagotchi {
 			this.displayHunger(this.hunger.element);
 			this.displayState();
 		}, 1000);
+		if (this.health.value === 0) {
+			return;
+		}
 	};
 
 	funDecrease = () => {
-		const decreaseValue = setInterval(() => {
+		this.funDecreaseId = setInterval(() => {
+			if (this.funDecreaseId === null) {
+				throw new Error('Fun interval is not set');
+			}
 			this.fun.value -= 1;
 			if (this.fun.value <= 0) {
 				this.fun.value = 0;
@@ -280,7 +310,7 @@ export default class Tamagotchi {
 				this.energy.value = 0;
 			}
 			if (this.health.value <= 0) {
-				clearInterval(decreaseValue);
+				clearInterval(this.funDecreaseId);
 			}
 			if (this.fun.element === null) {
 				throw new Error('Fun element not found');
@@ -288,8 +318,19 @@ export default class Tamagotchi {
 			this.displayFun(this.fun.element);
 			this.displayState();
 		}, 1000);
+		if (this.health.value === 0) {
+			return;
+		}
 	};
-
+	stopHungerDecrease() {
+		if (this.hungerDecreaseId !== null) clearInterval(this.hungerDecreaseId);
+	}
+	stopEnergyDecrease() {
+		if (this.energyDecreaseId !== null) clearInterval(this.energyDecreaseId);
+	}
+	stopFunDecrease() {
+		if (this.funDecreaseId !== null) clearInterval(this.funDecreaseId);
+	}
 	healthDecrease = () => {
 		const decreaseValue = setInterval(() => {
 			if (this.energy.value <= 0 || this.hunger.value <= 0) {

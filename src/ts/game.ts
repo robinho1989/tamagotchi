@@ -1,5 +1,5 @@
-import Abilities from './modules/abilities';
-import Tamagotchi from './modules/tamagotchi';
+import Abilities from './modules/abilities.js';
+import Tamagotchi from './modules/tamagotchi.js';
 import { MountProps, ActionElements } from './types';
 export default class Game {
 	tamagotchi: Tamagotchi;
