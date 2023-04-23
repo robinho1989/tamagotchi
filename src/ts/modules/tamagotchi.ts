@@ -86,9 +86,14 @@ export default class Tamagotchi {
 				path: './images/spritesheets/spritesheet-sleeping.png',
 			},
 		};
+
 		this.currentState = this.states.happy.stateName;
 		this.container = document.querySelector('.imageContainer');
 		this.image = document.querySelector('.tamagotchiImage');
+		if (this.image === null) {
+			throw new Error('Image not found');
+		}
+		this.image.src = this.states.happy.path;
 		this.gameButtons = document.querySelector(actionElements.playingButtons);
 		this.restartButton = document.querySelector(actionElements.resetButton);
 		this.hungerDecreaseId = null;
@@ -264,6 +269,9 @@ export default class Tamagotchi {
 			this.displayEnergy(this.energy.element);
 			this.displayState();
 		}, 2000);
+			if (this.health.value === 0) {
+			return;
+		}
 	};
 
 	hungerDecrease = () => {
@@ -284,10 +292,16 @@ export default class Tamagotchi {
 			this.displayHunger(this.hunger.element);
 			this.displayState();
 		}, 1000);
+		if (this.health.value === 0) {
+			return;
+		}
 	};
 
 	funDecrease = () => {
-		const decreaseValue = setInterval(() => {
+		this.funDecreaseId = setInterval(() => {
+			if (this.funDecreaseId === null) {
+				throw new Error('Fun interval is not set');
+			}
 			this.fun.value -= 1;
 			if (this.fun.value <= 0) {
 				this.fun.value = 0;
@@ -296,7 +310,7 @@ export default class Tamagotchi {
 				this.energy.value = 0;
 			}
 			if (this.health.value <= 0) {
-				clearInterval(decreaseValue);
+				clearInterval(this.funDecreaseId);
 			}
 			if (this.fun.element === null) {
 				throw new Error('Fun element not found');
@@ -304,12 +318,18 @@ export default class Tamagotchi {
 			this.displayFun(this.fun.element);
 			this.displayState();
 		}, 1000);
+		if (this.health.value === 0) {
+			return;
+		}
 	};
 	stopHungerDecrease() {
 		if (this.hungerDecreaseId !== null) clearInterval(this.hungerDecreaseId);
 	}
 	stopEnergyDecrease() {
 		if (this.energyDecreaseId !== null) clearInterval(this.energyDecreaseId);
+	}
+	stopFunDecrease() {
+		if (this.funDecreaseId !== null) clearInterval(this.funDecreaseId);
 	}
 	healthDecrease = () => {
 		const decreaseValue = setInterval(() => {
