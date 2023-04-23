@@ -117,7 +117,8 @@ body {
 	transform: translateY(7px);
 }
 .tamagotchiImage {
-	object-position: 5px -2px;
+	object-position: 13px 0px;
+	
 }
 .imageContainer {
 	overflow: hidden;
@@ -138,7 +139,7 @@ body {
 .standardSize {
 	height: 170px;
 	width: 10px;
-	object-position: -5px -2px;
+	object-position: 5px -2px;
 }
 .animatedState {
 	animation: action 0.8s steps(2) infinite;
@@ -148,11 +149,11 @@ body {
 .sleepingState {
 	animation: sleeping 0.8s steps(2) infinite;
 	object-fit: none;
-	object-position: 5px -3px;
+	object-position: 5px -1px;
 }
 .playingState {
 	animation: play 0.8s steps(2) infinite;
-	object-position: 19px 0px;
+	object-position: 19px 2px;
 }
 
 .gameDisplay {
@@ -198,6 +199,7 @@ body {
 }
 
 @keyframes action {
+	
 	100% {
 		object-position: -300px 0;
 	}
@@ -211,4 +213,5 @@ body {
 	100% {
 		object-position: -360px -5px;
 	}
+
 }

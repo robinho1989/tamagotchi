@@ -205,53 +205,6 @@ export default class Abilities {
 		this.tamagotchi.restartButton.addEventListener('click', this.handleReset);
 	};
 	handleReset = () => {
-		location.reload()
-		// if (
-		// 	this.tamagotchi.gameButtons === null ||
-		// 	this.tamagotchi.restartButton === null
-		// ) {
-		// 	throw new Error('One of action buttons not found');
-		// }
-		// if (
-		// 	this.tamagotchi.energy.element === null ||
-		// 	this.tamagotchi.hunger.element === null ||
-		// 	this.tamagotchi.health.element === null ||
-		// 	this.tamagotchi.fun.element === null
-		// ) {
-		// 	throw new Error('One of elements not found');
-		// }
-		// if (this.animatedImage === null) {
-		// 	throw new Error('Tamago image not found');
-		// }
-		// this.tamagotchi.stopHungerDecrease();
-		// this.tamagotchi.stopEnergyDecrease();
-		// this.tamagotchi.stopFunDecrease();
-		// this.tamagotchi.gameButtons.style.display = 'flex';
-		// this.tamagotchi.restartButton.style.display = 'none';
-		// this.tamagotchi.updateState = null;
-		// this.tamagotchi.currentState = this.tamagotchi.states.happy.stateName;
-		// this.tamagotchi.health.value = 10;
-		// this.tamagotchi.hunger.value = 10;
-		// this.tamagotchi.energy.value = 10;
-		// this.tamagotchi.fun.value = 10;
-		// this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
-		// this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
-		// this.tamagotchi.displayHealth(this.tamagotchi.health.element);
-		// this.tamagotchi.displayFun(this.tamagotchi.fun.element);
-		// this.feedingActionInterval = null;
-		// this.sleepingActionInterval = null;
-		// this.playingActionInterval = null;
-		// this.tamagotchi.activeState();
-		// this.tamagotchi.displayState();
-		// this.tamagotchi.energyDecrease();
-		// this.tamagotchi.hungerDecrease();
-		// this.tamagotchi.funDecrease();
-		// this.tamagotchi.healthDecrease();
-		// this.animatedImage.classList.remove('playingState');
-		// this.animatedImage.classList.remove('sleepingState');
-		// this.animatedImage.classList.remove('animatedState');
-		// this.stopFeeding();
-		// this.stopPlaying();
-		// this.stopSleeping();
+		location.reload();
 	};
 }
